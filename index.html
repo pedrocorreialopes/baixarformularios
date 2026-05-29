@@ -1,121 +1,1312 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Declaração de Conteúdo</title>
-    <style>
-        /* Estilo global */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulários ECT / Correios — Glipearte</title>
 
-        /* Cabeçalho */
-        header {
-            background-color: #007BFF;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" />
 
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Seção principal */
-        main {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+    :root {
+      --brand:       #1B4FD8;
+      --brand-dark:  #1340B0;
+      --brand-light: #EEF3FF;
+      --accent:      #F59E0B;
+      --success:     #10B981;
+      --danger:      #EF4444;
+      --text:        #1E293B;
+      --text-muted:  #64748B;
+      --border:      #E2E8F0;
+      --bg:          #F8FAFC;
+      --card:        #FFFFFF;
+      --radius:      12px;
+      --shadow-sm:   0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow:      0 4px 16px rgba(0,0,0,.10);
+      --shadow-lg:   0 10px 40px rgba(0,0,0,.14);
+      --transition:  .2s cubic-bezier(.4,0,.2,1);
+    }
 
-        /* Botão personalizado */
-        .download-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-        }
+    html { scroll-behavior: smooth; }
 
-        .download-btn:hover {
-            background-color: #218838;
-        }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
 
-        /* Rodapé */
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            margin-top: 20px;
-        }
+    /* ===== SKIP LINK ===== */
+    .skip-link {
+      position: absolute;
+      top: -999px;
+      left: 8px;
+      background: var(--brand);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 0 0 8px 8px;
+      font-size: .875rem;
+      z-index: 9999;
+      text-decoration: none;
+    }
+    .skip-link:focus { top: 0; }
 
-        /* Responsividade */
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 1.5rem;
-            }
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, var(--brand) 0%, #2563EB 60%, #1E40AF 100%);
+      color: #fff;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(27,79,216,.35);
+    }
 
-            .download-btn {
-                font-size: 0.9rem;
-                padding: 8px 16px;
-            }
-        }
-    </style>
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      gap: 16px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,.2);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+    }
+
+    .logo-text h1 {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: .75rem;
+      font-weight: 400;
+      opacity: .8;
+    }
+
+    /* Search bar */
+    .search-bar {
+      flex: 1;
+      max-width: 440px;
+      position: relative;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 10px 16px 10px 42px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,.15);
+      color: #fff;
+      font-family: inherit;
+      font-size: .875rem;
+      outline: none;
+      transition: background var(--transition), box-shadow var(--transition);
+      backdrop-filter: blur(4px);
+    }
+
+    .search-bar input::placeholder { color: rgba(255,255,255,.7); }
+
+    .search-bar input:focus {
+      background: rgba(255,255,255,.25);
+      box-shadow: 0 0 0 2px rgba(255,255,255,.5);
+    }
+
+    .search-bar .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,255,.7);
+      font-size: .875rem;
+      pointer-events: none;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #1B4FD8 0%, #2563EB 50%, #7C3AED 100%);
+      color: #fff;
+      padding: 64px 24px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -.02em;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: .85;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,.25);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 500;
+    }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 24px;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .stat-item .stat-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--brand-light);
+      color: var(--brand);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .stat-item .stat-num {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-item .stat-label {
+      font-size: .75rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+    }
+
+    /* ===== CATEGORY TABS ===== */
+    .tabs-wrapper {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: .85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+
+    .tab-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(27,79,216,.3);
+    }
+
+    /* ===== SECTION ===== */
+    .section { margin-bottom: 52px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .section-title { font-size: 1.25rem; font-weight: 700; }
+    .section-subtitle { font-size: .85rem; color: var(--text-muted); margin-top: 2px; }
+
+    /* ===== GRID ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    /* ===== CARD ===== */
+    .doc-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .doc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--brand));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition);
+    }
+
+    .doc-card:hover {
+      border-color: transparent;
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+
+    .doc-card:hover::before { transform: scaleX(1); }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .card-file-icon {
+      width: 46px;
+      height: 56px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.4rem;
+      background: #FEF2F2;
+      color: #DC2626;
+      position: relative;
+    }
+
+    .card-file-icon .ext {
+      font-size: .55rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      margin-top: 2px;
+      background: #DC2626;
+      color: #fff;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+
+    .card-info { flex: 1; min-width: 0; }
+
+    .card-title {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: .8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: .7rem;
+      font-weight: 500;
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .meta-tag.editable { background: #ECFDF5; color: #059669; border-color: #A7F3D0; }
+    .meta-tag.official  { background: #EFF6FF; color: #1D4ED8; border-color: #BFDBFE; }
+
+    .card-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: .82rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); box-shadow: 0 4px 10px rgba(27,79,216,.35); }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--text-muted);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-secondary:hover { background: var(--border); color: var(--text); }
+
+    /* ===== INFO ALERT ===== */
+    .info-alert {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-left: 4px solid var(--brand);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 36px;
+    }
+
+    .info-alert .icon { color: var(--brand); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+    .info-alert p { font-size: .875rem; color: #1E40AF; line-height: 1.6; }
+    .info-alert strong { font-weight: 600; }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .empty-state.visible { display: block; }
+
+    .empty-state i { font-size: 3rem; margin-bottom: 16px; opacity: .4; }
+    .empty-state h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text); }
+    .empty-state p { font-size: .875rem; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--text);
+      color: rgba(255,255,255,.75);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: .825rem;
+    }
+
+    footer strong { color: #fff; font-weight: 600; }
+
+    /* ===== BACK TO TOP ===== */
+    #back-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 44px;
+      height: 44px;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+      z-index: 90;
+    }
+
+    #back-top.visible { opacity: 1; pointer-events: auto; }
+    #back-top:hover { transform: translateY(-3px); }
+
+    /* ===== TOAST ===== */
+    #toast {
+      position: fixed;
+      bottom: 80px;
+      right: 28px;
+      background: #1E293B;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: .85rem;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .3s ease;
+      pointer-events: none;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      .header-inner { height: auto; padding: 12px 0; flex-wrap: wrap; }
+      .search-bar { max-width: 100%; order: 3; flex: 0 0 100%; }
+      .hero { padding: 40px 20px; }
+      .stats-inner { gap: 20px; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== CATEGORY COLORS ===== */
+    .cat-postal   { --card-accent: #1B4FD8; }
+    .cat-ect      { --card-accent: #059669; }
+    .cat-contrato { --card-accent: #7C3AED; }
+    .cat-endereco { --card-accent: #F59E0B; }
+    .cat-outros   { --card-accent: #EC4899; }
+
+    /* section icon colors */
+    .icon-postal   { background: #EEF3FF; color: #1B4FD8; }
+    .icon-ect      { background: #ECFDF5; color: #059669; }
+    .icon-contrato { background: #F5F3FF; color: #7C3AED; }
+    .icon-endereco { background: #FFFBEB; color: #D97706; }
+    .icon-outros   { background: #FDF2F8; color: #EC4899; }
+
+    /* highlight for search */
+    mark {
+      background: #FEF08A;
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 2px;
+    }
+  </style>
 </head>
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <h1>Acesse o Documento Anexo</h1>
-    </header>
 
-    <!-- Seção Principal -->
-    <main>
-	<div></div>	
-        <p>Para visualizar ou baixar os documentos <strong>EM PDF</strong>, clique no botão abaixo:</p>
-        
-        <!-- Link para abrir o arquivo PDF -->
-    <a href="DECLARACAO DE CONTEUDO.pdf" class="download-btn" target="_blank">Declaração de Conteúdo</a>
-	<a href="declaracao-de-conteudo-editavel.pdf" class="download-btn" target="_blank">Declaração de Conteúdo Editável</a>	
-	<a href="Enderecador-A4.pdf" class="download-btn" target="_blank">Endereçador</a>
-	<a href="enderecador-editavel.pdf" class="download-btn" target="_blank">Endereçador Editável</a>
-	<a href="autorização de retirada de encomenda.pdf" class="download-btn" target="_blank">Autorização de Retirada de Encomenda</a>
-	<a href="Telegrama.pdf" class="download-btn" target="_blank">Telegrama</a>
-	<a href="telegrama-editavel.pdf" class="download-btn" target="_blank">Telegrama Editável</a>
-	<a href="fechamento autorizado.pdf" class="download-btn" target="_blank">Impresso - Fechamento Autorizado</a>
-	<a href="Enderecador e Comprovante de endereço.pdf" class="download-btn" target="_blank">Enderecador e Comprovante de endereço</a>	
-	<a href="declaracao de conteudo internacional.pdf" class="download-btn" target="_blank">Declaração de Conteúdo Internacional</a>
-	<a href="etiquetas-raio-x.pdf" class="download-btn" target="_blank">Etiquetas Raio X</a>
-	<a href="declaracao_de_estudo.pdf" class="download-btn" target="_blank">Declaração de Estudo de TLT</a>
-	</div>	
-    </main>
+<a href="#main-content" class="skip-link">Ir para o conteúdo</a>
 
-    <!-- Rodapé -->
-    <footer>
-        &copy; 2023 - Todos os direitos reservados
-    </footer> 
+<!-- ===== HEADER ===== -->
+<header role="banner">
+  <div class="header-inner">
+    <a href="#" class="logo-area" aria-label="Início">
+      <div class="logo-icon"><i class="fas fa-box-open"></i></div>
+      <div class="logo-text">
+        <h1>Glipearte</h1>
+        <span>Formulários & Documentos</span>
+      </div>
+    </a>
+
+    <div class="search-bar" role="search">
+      <i class="fas fa-search search-icon" aria-hidden="true"></i>
+      <input type="search" id="search-input" placeholder="Buscar formulário..." aria-label="Buscar formulário" autocomplete="off" />
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" aria-labelledby="hero-title">
+  <h2 id="hero-title">📦 Central de Formulários ECT</h2>
+  <p>Todos os documentos necessários para envios, declarações e contratos dos Correios em um único lugar.</p>
+  <div class="hero-badges">
+    <span class="badge"><i class="fas fa-file-pdf"></i> PDFs prontos para uso</span>
+    <span class="badge"><i class="fas fa-edit"></i> Versões editáveis</span>
+    <span class="badge"><i class="fas fa-download"></i> Download gratuito</span>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="stats-bar" role="complementary" aria-label="Estatísticas">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+      <div>
+        <div class="stat-num">16</div>
+        <div class="stat-label">Documentos disponíveis</div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-edit"></i></div>
+      <div>
+        <div class="stat-num">8</div>
+        <div class="stat-label">Versões editáveis</div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-tags"></i></div>
+      <div>
+        <div class="stat-num">5</div>
+        <div class="stat-label">Categorias</div>
+      </div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Gratuito</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MAIN ===== -->
+<main id="main-content">
+
+  <!-- Info Alert -->
+  <div class="info-alert" role="alert">
+    <i class="fas fa-info-circle icon" aria-hidden="true"></i>
+    <p>
+      <strong>Como usar:</strong> Clique em <em>"Visualizar"</em> para abrir o documento no navegador ou em <em>"Baixar"</em> para fazer o download direto.
+      Documentos marcados com <strong>✏️ Editável</strong> podem ser preenchidos digitalmente antes de imprimir.
+    </p>
+  </div>
+
+  <!-- Category Tabs -->
+  <nav aria-label="Categorias de documentos">
+    <div class="tabs-wrapper" role="tablist" id="category-tabs">
+      <button class="tab-btn active" role="tab" aria-selected="true" data-filter="all">
+        <i class="fas fa-th-large"></i> Todos
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-filter="declaracao">
+        <i class="fas fa-file-invoice"></i> Declarações
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-filter="endereco">
+        <i class="fas fa-map-marker-alt"></i> Endereçadores
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-filter="ect">
+        <i class="fas fa-stamp"></i> ECT / Correios
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-filter="contrato">
+        <i class="fas fa-handshake"></i> Contratos
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-filter="outros">
+        <i class="fas fa-folder-open"></i> Outros
+      </button>
+    </div>
+  </nav>
+
+  <!-- Empty State -->
+  <div class="empty-state" id="empty-state" aria-live="polite">
+    <i class="fas fa-search"></i>
+    <h3>Nenhum resultado encontrado</h3>
+    <p>Tente buscar por outro termo ou selecione outra categoria.</p>
+  </div>
+
+  <!-- ===== SEÇÃO: DECLARAÇÕES ===== -->
+  <section class="section" data-category="declaracao" aria-labelledby="sec-decl">
+    <div class="section-header">
+      <div class="section-icon icon-postal"><i class="fas fa-file-invoice"></i></div>
+      <div>
+        <h2 class="section-title" id="sec-decl">Declarações de Conteúdo</h2>
+        <p class="section-subtitle">Documentos obrigatórios para envio de mercadorias pelos Correios</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <article class="doc-card cat-postal" data-category="declaracao" data-tags="declaração conteúdo nacional correios ect">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Declaração de Conteúdo</h3>
+            <p class="card-desc">Formulário padrão ECT para declarar o conteúdo de encomendas nacionais.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag official"><i class="fas fa-stamp"></i> ECT Oficial</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 46 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/DiquhTHv" target="_blank" rel="noopener" class="btn btn-secondary" aria-label="Visualizar Declaração de Conteúdo">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/DiquhTHv" download="DECLARACAO DE CONTEUDO.pdf" class="btn btn-primary" aria-label="Baixar Declaração de Conteúdo">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-postal" data-category="declaracao" data-tags="declaração conteúdo editável preencher digital">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Declaração de Conteúdo — Editável</h3>
+            <p class="card-desc">Versão editável para preenchimento digital antes da impressão.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag editable"><i class="fas fa-edit"></i> Editável</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 72 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/XHb4efYj" target="_blank" rel="noopener" class="btn btn-secondary" aria-label="Visualizar Declaração de Conteúdo Editável">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/XHb4efYj" download="declaracao-de-conteudo-editavel.pdf" class="btn btn-primary" aria-label="Baixar Declaração de Conteúdo Editável">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-postal" data-category="declaracao" data-tags="declaração conteúdo internacional exportação ncm">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Declaração de Conteúdo Internacional</h3>
+            <p class="card-desc">Para envios internacionais — inclui campos de NCM e preço.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag official"><i class="fas fa-globe"></i> Internacional</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 10 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/Ytx1zyAs" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/Ytx1zyAs" download="declaracao de conteudo internacional.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-postal" data-category="declaracao" data-tags="declaração estudo conteúdo modelo">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Declaração de Estudo</h3>
+            <p class="card-desc">Modelo de declaração de estudo para envio de materiais didáticos.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag"><i class="fas fa-book"></i> Educacional</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 220 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/0NgKOLye" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/0NgKOLye" download="declaracao_de_estudo.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== SEÇÃO: ENDEREÇADORES ===== -->
+  <section class="section" data-category="endereco" aria-labelledby="sec-end">
+    <div class="section-header">
+      <div class="section-icon icon-endereco"><i class="fas fa-map-marker-alt"></i></div>
+      <div>
+        <h2 class="section-title" id="sec-end">Endereçadores</h2>
+        <p class="section-subtitle">Etiquetas e formulários para identificação de remetente e destinatário</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <article class="doc-card cat-endereco" data-category="endereco" data-tags="endereçador remetente destinatário etiqueta a4">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Endereçador A4</h3>
+            <p class="card-desc">Formulário padrão A4 para endereçamento de encomendas.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag official"><i class="fas fa-stamp"></i> ECT Oficial</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 422 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/xKehlxyO" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/xKehlxyO" download="Enderecador-A4.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-endereco" data-category="endereco" data-tags="endereçador editável remetente destinatário preencher">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Endereçador Editável</h3>
+            <p class="card-desc">Versão editável do endereçador — preencha digitalmente.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag editable"><i class="fas fa-edit"></i> Editável</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 461 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/WiuBvQWP" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/WiuBvQWP" download="enderecador editavel.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-endereco" data-category="endereco" data-tags="endereçador editável versão alternativa">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Endereçador Editável (v2)</h3>
+            <p class="card-desc">Segunda versão do endereçador com campos editáveis.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag editable"><i class="fas fa-edit"></i> Editável</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 466 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/18rGfHSc" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/18rGfHSc" download="enderecador-editavel.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-endereco" data-category="endereco" data-tags="endereçador comprovante endereço">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Endereçador + Comprovante (Grande)</h3>
+            <p class="card-desc">Conjunto com endereçador e comprovante de entrega — versão completa.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag"><i class="fas fa-layer-group"></i> Combinado</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 691 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/zFAe4VWV" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/zFAe4VWV" download="Enderecador e Comprovante de endereço.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-endereco" data-category="endereco" data-tags="endereçador comprovante endereço compacto">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Endereçador + Comprovante (Compacto)</h3>
+            <p class="card-desc">Versão compacta do conjunto endereçador e comprovante.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag"><i class="fas fa-layer-group"></i> Combinado</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 210 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/A1L79U0t" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/A1L79U0t" download="Enderecador e Comprovante de endereço compacto.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== SEÇÃO: ECT / CORREIOS ===== -->
+  <section class="section" data-category="ect" aria-labelledby="sec-ect">
+    <div class="section-header">
+      <div class="section-icon icon-ect"><i class="fas fa-stamp"></i></div>
+      <div>
+        <h2 class="section-title" id="sec-ect">Documentos ECT / Correios</h2>
+        <p class="section-subtitle">Formulários oficiais dos Correios para operações postais</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <article class="doc-card cat-ect" data-category="ect" data-tags="fechamento autorizado ECT correios etiqueta">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Fechamento Autorizado — Pode ser Aberto pela ECT</h3>
+            <p class="card-desc">Etiqueta oficial para objetos com fechamento autorizado pela ECT (45 etiquetas/folha).</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag official"><i class="fas fa-stamp"></i> ECT Oficial</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 1,9 MB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/uKa78puo" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/uKa78puo" download="fechamento autorizado.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-ect" data-category="ect" data-tags="etiqueta raio-x encomenda ECT correios">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Etiquetas Raio-X</h3>
+            <p class="card-desc">Etiquetas para identificação de objetos sujeitos à inspeção por raio-X.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag official"><i class="fas fa-stamp"></i> ECT Oficial</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 313 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/oSkNcbke" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/oSkNcbke" download="etiquetas-raio-x.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-ect" data-category="ect" data-tags="autorização retirada encomenda correios autorizar">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Autorização de Retirada de Encomenda</h3>
+            <p class="card-desc">Formulário para autorizar terceiros a retirar encomendas no nome do destinatário.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag official"><i class="fas fa-stamp"></i> ECT Oficial</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 31 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/DnqmYcrm" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/DnqmYcrm" download="autorização de retirada de encomenda.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== SEÇÃO: CONTRATOS ===== -->
+  <section class="section" data-category="contrato" aria-labelledby="sec-cont">
+    <div class="section-header">
+      <div class="section-icon icon-contrato"><i class="fas fa-handshake"></i></div>
+      <div>
+        <h2 class="section-title" id="sec-cont">Contratos — Glipearte Pegue e Monte</h2>
+        <p class="section-subtitle">Instrumentos particulares de locação de kits artesanais</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <article class="doc-card cat-contrato" data-category="contrato" data-tags="contrato glipearte pegue monte locação kit artesanato">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-contract" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Contrato Pegue e Monte — Glipearte</h3>
+            <p class="card-desc">Instrumento particular de locação do kit "Pegue e Monte" — versão principal.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag"><i class="fas fa-file-signature"></i> Contrato</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 220 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/OEheykhq" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/OEheykhq" download="Contrato Pegue e Monte Glipearte.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-contrato" data-category="contrato" data-tags="contrato glipearte pegue monte locação kit artesanato v2">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-contract" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Contrato Pegue e Monte (v2)</h3>
+            <p class="card-desc">Versão alternativa do contrato de locação do kit "Pegue e Monte".</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag"><i class="fas fa-file-signature"></i> Contrato</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 221 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/5UPrDQ3P" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/5UPrDQ3P" download="contrato_pegue_e_monte_glipearte.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-contrato" data-category="contrato" data-tags="contrato glipearte mini kit locação artesanato">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-contract" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Contrato Mini Kit — Glipearte</h3>
+            <p class="card-desc">Instrumento particular de locação do "Mini Kit Pegue e Monte".</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag"><i class="fas fa-file-signature"></i> Contrato</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 223 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/I0WXtF3X" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/I0WXtF3X" download="contrato_mini_kit_glipearte.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== SEÇÃO: OUTROS ===== -->
+  <section class="section" data-category="outros" aria-labelledby="sec-out">
+    <div class="section-header">
+      <div class="section-icon icon-outros"><i class="fas fa-folder-open"></i></div>
+      <div>
+        <h2 class="section-title" id="sec-out">Outros Documentos</h2>
+        <p class="section-subtitle">Telegrama e demais formulários postais</p>
+      </div>
+    </div>
+    <div class="cards-grid">
+
+      <article class="doc-card cat-outros" data-category="outros" data-tags="telegrama correios modelo formulário">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Telegrama</h3>
+            <p class="card-desc">Formulário oficial de telegrama dos Correios.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag official"><i class="fas fa-stamp"></i> ECT Oficial</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 376 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/vum6WRYU" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/vum6WRYU" download="Telegrama.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+      <article class="doc-card cat-outros" data-category="outros" data-tags="telegrama editável preencher digital correios">
+        <div class="card-top">
+          <div class="card-file-icon">
+            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+            <span class="ext">PDF</span>
+          </div>
+          <div class="card-info">
+            <h3 class="card-title">Telegrama — Editável</h3>
+            <p class="card-desc">Versão editável do formulário de telegrama para preenchimento digital.</p>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="meta-tag editable"><i class="fas fa-edit"></i> Editável</span>
+          <span class="meta-tag"><i class="fas fa-weight"></i> 397 KB</span>
+        </div>
+        <div class="card-actions">
+          <a href="https://www.genspark.ai/api/files/s/nUuLffy4" target="_blank" rel="noopener" class="btn btn-secondary">
+            <i class="fas fa-eye"></i> Visualizar
+          </a>
+          <a href="https://www.genspark.ai/api/files/s/nUuLffy4" download="telegrama-editavel.pdf" class="btn btn-primary">
+            <i class="fas fa-download"></i> Baixar
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer role="contentinfo">
+  <p>
+    <strong>Glipearte Pegue e Monte</strong> &mdash;
+    Rua N. Sra. Das Graças, 1041 – Fortaleza/CE &nbsp;|&nbsp;
+    <i class="fab fa-whatsapp"></i> (85) 98685-3750
+  </p>
+  <p style="margin-top:6px;opacity:.6;">
+    Seg. a Sex. 09h–18h &nbsp;|&nbsp; WhatsApp Seg.–Sex. 09h–19h e Sáb. 09h–12h
+  </p>
+</footer>
+
+<!-- Back to top -->
+<button id="back-top" aria-label="Voltar ao topo">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<!-- Toast notification -->
+<div id="toast" role="status" aria-live="polite">
+  <i class="fas fa-check-circle"></i>
+  <span id="toast-msg">Download iniciado!</span>
+</div>
+
+<script>
+  /* =====================================================
+     SEARCH FUNCTIONALITY
+  ===================================================== */
+  const searchInput = document.getElementById('search-input');
+  const allCards    = document.querySelectorAll('.doc-card');
+  const allSections = document.querySelectorAll('.section');
+  const emptyState  = document.getElementById('empty-state');
+
+  function normalizeStr(str) {
+    return str.toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function applyFilters() {
+    const query      = normalizeStr(searchInput.value.trim());
+    const activeTab  = document.querySelector('.tab-btn.active')?.dataset.filter || 'all';
+
+    let visibleCount = 0;
+
+    allCards.forEach(card => {
+      const category = card.dataset.category;
+      const tags     = normalizeStr(card.dataset.tags || '');
+      const title    = normalizeStr(card.querySelector('.card-title')?.textContent || '');
+      const desc     = normalizeStr(card.querySelector('.card-desc')?.textContent  || '');
+
+      const matchCat   = activeTab === 'all' || category === activeTab;
+      const matchQuery = !query || tags.includes(query) || title.includes(query) || desc.includes(query);
+
+      const visible = matchCat && matchQuery;
+      card.style.display = visible ? '' : 'none';
+      if (visible) visibleCount++;
+    });
+
+    // Show / hide sections
+    allSections.forEach(sec => {
+      const sectionCat = sec.dataset.category;
+      const hasCat     = activeTab === 'all' || sectionCat === activeTab;
+      const visCards   = [...sec.querySelectorAll('.doc-card')].some(c => c.style.display !== 'none');
+      sec.style.display = (hasCat && visCards) ? '' : 'none';
+    });
+
+    emptyState.classList.toggle('visible', visibleCount === 0);
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+
+  /* =====================================================
+     TABS
+  ===================================================== */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      applyFilters();
+    });
+  });
+
+  /* =====================================================
+     BACK TO TOP
+  ===================================================== */
+  const backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    backTop.classList.toggle('visible', window.scrollY > 320);
+  }, { passive: true });
+  backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  /* =====================================================
+     TOAST on download
+  ===================================================== */
+  const toast    = document.getElementById('toast');
+  const toastMsg = document.getElementById('toast-msg');
+
+  function showToast(msg) {
+    toastMsg.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  document.querySelectorAll('a[download]').forEach(link => {
+    link.addEventListener('click', () => {
+      const name = link.getAttribute('download') || 'arquivo';
+      showToast(`⬇️ Baixando "${name}"…`);
+    });
+  });
+
+  /* =====================================================
+     KEYBOARD: Enter on cards
+  ===================================================== */
+  document.querySelectorAll('.doc-card').forEach(card => {
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter') card.querySelector('.btn-primary')?.click();
+    });
+  });
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
